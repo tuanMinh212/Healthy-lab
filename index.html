@@ -285,11 +285,21 @@
             • Ngọt tự nhiên & hoa quả<br />
             • Giảm 60% calo, vị ngon không đổi
           </p>
-          <a
-            href="#menu"
-            class="inline-block bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover"
-            >Xem Thực Đơn</a
-          >
+          <div class="flex flex-col space-y-3">
+            <a
+              href="#menu"
+              class="inline-block bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover"
+              >Xem Thực Đơn</a
+            >
+            <a
+              href="https://m.me/your-page-username"
+              target="_blank"
+              class="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover"
+            >
+              <i class="ri-messenger-line mr-2"></i>
+              Chat trên Messenger
+            </a>
+          </div>
         </div>
         <div
           class="absolute bottom-[-30px] right-[-20px] w-[180px] h-[180px] z-20"
@@ -355,86 +365,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="mt-12 bg-white p-6 rounded-lg shadow-md"
-          style="background-image: url('https://readdy.ai/api/search-image?query=subtle%20organic%20texture%20pattern%2C%20extremely%20light%20and%20soft%2C%20white%20tint%2C%20minimalist%20design%2C%20barely%20visible&width=400&height=400&seq=texture2&orientation=squarish'); background-blend-mode: overlay;"
-        >
-          <h3 class="heading text-lg font-medium mb-4 text-center">
-            Chia Sẻ Cảm Nhận
-          </h3>
-          <form id="feedbackForm" class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Giới tính</label
-              >
-              <div class="flex space-x-4">
-                <label class="flex items-center cursor-pointer">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    class="hidden"
-                  />
-                  <div
-                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
-                  >
-                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
-                  </div>
-                  <span class="text-gray-700">Nam</span>
-                </label>
-                <label class="flex items-center cursor-pointer">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    class="hidden"
-                  />
-                  <div
-                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
-                  >
-                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
-                  </div>
-                  <span class="text-gray-700">Nữ</span>
-                </label>
-              </div>
-            </div>
-            <div>
-              <label
-                for="age"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Tuổi</label
-              >
-              <input
-                type="number"
-                id="age"
-                min="1"
-                max="120"
-                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
-                placeholder="Nhập tuổi của bạn"
-              />
-            </div>
-            <div>
-              <label
-                for="message"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Lời nhắn</label
-              >
-              <textarea
-                id="message"
-                rows="4"
-                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
-                placeholder="Chia sẻ cảm nhận của bạn"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="w-full bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-            >
-              Gửi Phản Hồi
-            </button>
-          </form>
-        </div>
-      </section>
+      
       <!-- Menu Section -->
       <section id="menu" class="py-12">
         <div class="max-w-[375px] mx-auto">
@@ -565,6 +496,87 @@
           </div>
         </div>
       </section>
+
+        <div
+          class="mt-12 bg-white p-6 rounded-lg shadow-md"
+          style="background-image: url('https://readdy.ai/api/search-image?query=subtle%20organic%20texture%20pattern%2C%20extremely%20light%20and%20soft%2C%20white%20tint%2C%20minimalist%20design%2C%20barely%20visible&width=400&height=400&seq=texture2&orientation=squarish'); background-blend-mode: overlay;"
+        >
+          <h3 class="heading text-lg font-medium mb-4 text-center">
+            Chia Sẻ Cảm Nhận
+          </h3>
+          <form id="feedbackForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Giới tính</label
+              >
+              <div class="flex space-x-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    class="hidden"
+                  />
+                  <div
+                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
+                  >
+                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                  </div>
+                  <span class="text-gray-700">Nam</span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    class="hidden"
+                  />
+                  <div
+                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
+                  >
+                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                  </div>
+                  <span class="text-gray-700">Nữ</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label
+                for="age"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Tuổi</label
+              >
+              <input
+                type="number"
+                id="age"
+                min="1"
+                max="120"
+                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder="Nhập tuổi của bạn"
+              />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Lời nhắn</label
+              >
+              <textarea
+                id="message"
+                rows="4"
+                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder="Chia sẻ cảm nhận của bạn"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+            >
+              Gửi Phản Hồi
+            </button>
+          </form>
+        </div>
+      </section>
       <!-- Contact Section -->
       <section id="contact" class="py-12 max-w-[375px] mx-auto px-6">
         <div class="text-center mb-8">
@@ -616,6 +628,16 @@
                 ></i>
                 <span class="ml-2">+84 28 1234 5678</span>
               </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <a
+                href="https://m.me/your-page-username"
+                target="_blank"
+                class="w-full inline-flex items-center justify-center bg-blue-600 text-white px-4 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover"
+              >
+                <i class="ri-messenger-line mr-2"></i>
+                Chat trên Messenger
+              </a>
             </div>
           </div>
         </div>
