@@ -495,7 +495,13 @@
           <h3 class="heading text-lg font-medium mb-4 text-center">
             Chia Sẻ Cảm Nhận
           </h3>
-          <form id="feedbackForm" class="space-y-4">
+          <form 
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse" 
+            method="post" 
+            target="_blank"
+            id="feedbackForm" 
+            class="space-y-4"
+          >
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2"
                 >Giới tính</label
@@ -504,8 +510,8 @@
                 <label class="flex items-center cursor-pointer">
                   <input
                     type="radio"
-                    name="gender"
-                    value="male"
+                    name="entry.123456789"
+                    value="Nam"
                     class="hidden"
                   />
                   <div
@@ -518,8 +524,8 @@
                 <label class="flex items-center cursor-pointer">
                   <input
                     type="radio"
-                    name="gender"
-                    value="female"
+                    name="entry.123456789"
+                    value="Nữ"
                     class="hidden"
                   />
                   <div
@@ -540,6 +546,7 @@
               <input
                 type="number"
                 id="age"
+                name="entry.987654321"
                 min="1"
                 max="120"
                 class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -554,6 +561,7 @@
               >
               <textarea
                 id="message"
+                name="entry.555444333"
                 rows="4"
                 class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="Chia sẻ cảm nhận của bạn"
@@ -813,13 +821,13 @@
           });
         });
         feedbackForm.addEventListener("submit", function (e) {
-          e.preventDefault();
           const gender = document.querySelector(
-            'input[name="gender"]:checked',
+            'input[name="entry.123456789"]:checked',
           )?.value;
           const age = document.getElementById("age").value;
           const message = document.getElementById("message").value;
           if (!gender || !age || !message) {
+            e.preventDefault();
             const formModal = document.createElement("div");
             formModal.className =
               "fixed inset-0 flex items-center justify-center z-50 bg-black/50";
@@ -837,6 +845,7 @@
             return;
           }
           if (age < 1 || age > 120) {
+            e.preventDefault();
             const formModal = document.createElement("div");
             formModal.className =
               "fixed inset-0 flex items-center justify-center z-50 bg-black/50";
@@ -853,8 +862,9 @@
             });
             return;
           }
-          // Simulate form submission
-          feedbackForm.innerHTML = `
+          // Show success message and submit to Google Forms
+          setTimeout(() => {
+            feedbackForm.innerHTML = `
       <div class="text-center py-6">
       <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
       <i class="ri-check-line ri-2x text-primary"></i>
@@ -863,6 +873,7 @@
       <p class="text-gray-600">Your feedback has been submitted successfully. We appreciate your input!</p>
       </div>
       `;
+          }, 1000);
         });
       });
     </script>
