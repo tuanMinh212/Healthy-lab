@@ -820,48 +820,42 @@
             indicator.classList.remove("hidden");
           });
         });
-        feedbackForm.addEventListener("submit", function (e) {
-          const gender = document.querySelector(
-            'input[name="entry.123456789"]:checked',
-          )?.value;
-          const age = document.getElementById("age").value;
-          const message = document.getElementById("message").value;
-          if (!gender || !age || !message) {
-            e.preventDefault();
-            const formModal = document.createElement("div");
-            formModal.className =
-              "fixed inset-0 flex items-center justify-center z-50 bg-black/50";
-            formModal.innerHTML = `
-      <div class="bg-white rounded-lg p-6 max-w-[300px] w-full">
-      <h3 class="text-lg font-medium text-gray-800 mb-2">Form Incomplete</h3>
-      <p class="text-gray-600 mb-4">Please fill in all fields to submit your feedback.</p>
-      <button class="w-full bg-primary text-gray-800 px-4 py-2 !rounded-button">OK</button>
-      </div>
+        <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("feedbackForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // chặn chuyển hướng
+
+      const gender = document.querySelector('input[name="entry.153432312"]:checked')?.value || "";
+      const age = document.getElementById("age")?.value || "";
+      const message = document.getElementById("message")?.value || "";
+
+      const formData = new FormData();
+      formData.append("entry.153432312", gender);
+      formData.append("entry.1530883810", age);
+      formData.append("entry.728060465", message);
+
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      });
+
+      // Hiển thị thông báo cảm ơn
+      form.innerHTML = `
+        <div class="text-center py-6">
+          <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="ri-check-line ri-2x text-primary"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-800 mb-2">Cảm ơn bạn!</h3>
+          <p class="text-gray-600">Phản hồi của bạn đã được ghi nhận thành công.</p>
+        </div>
       `;
-            document.body.appendChild(formModal);
-            formModal.querySelector("button").addEventListener("click", function () {
-              document.body.removeChild(formModal);
-            });
-            return;
-          }
-          if (age < 1 || age > 120) {
-            e.preventDefault();
-            const formModal = document.createElement("div");
-            formModal.className =
-              "fixed inset-0 flex items-center justify-center z-50 bg-black/50";
-            formModal.innerHTML = `
-      <div class="bg-white rounded-lg p-6 max-w-[300px] w-full">
-      <h3 class="text-lg font-medium text-gray-800 mb-2">Invalid Age</h3>
-      <p class="text-gray-600 mb-4">Please enter a valid age between 1 and 120.</p>
-      <button class="w-full bg-primary text-gray-800 px-4 py-2 !rounded-button">OK</button>
-      </div>
-      `;
-            document.body.appendChild(formModal);
-            formModal.querySelector("button").addEventListener("click", function () {
-              document.body.removeChild(formModal);
-            });
-            return;
-          }
+    });
+  });
+</script>
+
           // Show success message and submit to Google Forms
           setTimeout(() => {
             feedbackForm.innerHTML = `
