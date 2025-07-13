@@ -853,24 +853,6 @@
       `;
     });
   });
-</script>
-
-      document.addEventListener("DOMContentLoaded", function () {
-  const feedbackForm = document.getElementById("feedbackForm");
-  const radioInputs = document.querySelectorAll('input[type="radio"]');
-
-  // Bắt sự kiện chọn giới tính
-  radioInputs.forEach((input) => {
-    input.addEventListener("change", function () {
-      radioInputs.forEach((radio) => {
-        const indicator =
-          radio.nextElementSibling.querySelector("div:last-child");
-        indicator.classList.add("hidden");
-      });
-      const indicator = this.nextElementSibling.querySelector("div:last-child");
-      indicator.classList.remove("hidden");
-    });
-  });
 
   // Bắt sự kiện submit
   feedbackForm.addEventListener("submit", function (e) {
