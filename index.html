@@ -804,37 +804,36 @@
         });
       });
     </script>
-    
-    <script id="feedbackFormScript">
-      document.addEventListener("DOMContentLoaded", function () {
-        const feedbackForm = document.getElementById("feedbackForm");
-        const radioInputs = document.querySelectorAll('input[type="radio"]');
-        radioInputs.forEach((input) => {
-          input.addEventListener("change", function () {
-            radioInputs.forEach((radio) => {
-              const indicator =
-                radio.nextElementSibling.querySelector("div:last-child");
-              indicator.classList.add("hidden");
-            });
-            const indicator = this.nextElementSibling.querySelector("div:last-child");
-            indicator.classList.remove("hidden");
-          });
-        });
-        <script>
+  <script id="feedbackFormScript">
   document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("feedbackForm");
+    const feedbackForm = document.getElementById("feedbackForm");
+    const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // chặn chuyển hướng
+    // Bắt sự kiện chọn giới tính
+    radioInputs.forEach((input) => {
+      input.addEventListener("change", function () {
+        radioInputs.forEach((radio) => {
+          const indicator =
+            radio.nextElementSibling.querySelector("div:last-child");
+          indicator.classList.add("hidden");
+        });
+        const indicator = this.nextElementSibling.querySelector("div:last-child");
+        indicator.classList.remove("hidden");
+      });
+    });
 
-      const gender = document.querySelector('input[name="entry.153432312"]:checked')?.value || "";
+    // Bắt sự kiện submit
+    feedbackForm.addEventListener("submit", function (e) {
+      e.preventDefault(); // Không chuyển hướng trang
+
+      const gender = document.querySelector('input[name="entry.728060465"]:checked')?.value || "";
       const age = document.getElementById("age")?.value || "";
       const message = document.getElementById("message")?.value || "";
 
       const formData = new FormData();
-      formData.append("entry.153432312", gender);
+      formData.append("entry.728060465", gender);
       formData.append("entry.1530883810", age);
-      formData.append("entry.728060465", message);
+      formData.append("entry.153432312", message);
 
       fetch("https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse", {
         method: "POST",
@@ -842,8 +841,8 @@
         body: formData,
       });
 
-      // Hiển thị thông báo cảm ơn
-      form.innerHTML = `
+      // Hiển thị thông báo cảm ơn ngay trên trang
+      feedbackForm.innerHTML = `
         <div class="text-center py-6">
           <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <i class="ri-check-line ri-2x text-primary"></i>
@@ -856,18 +855,66 @@
   });
 </script>
 
-          // Show success message and submit to Google Forms
-          setTimeout(() => {
-            feedbackForm.innerHTML = `
+      document.addEventListener("DOMContentLoaded", function () {
+  const feedbackForm = document.getElementById("feedbackForm");
+  const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+  // Bắt sự kiện chọn giới tính
+  radioInputs.forEach((input) => {
+    input.addEventListener("change", function () {
+      radioInputs.forEach((radio) => {
+        const indicator =
+          radio.nextElementSibling.querySelector("div:last-child");
+        indicator.classList.add("hidden");
+      });
+      const indicator = this.nextElementSibling.querySelector("div:last-child");
+      indicator.classList.remove("hidden");
+    });
+  });
+
+  // Bắt sự kiện submit
+  feedbackForm.addEventListener("submit", function (e) {
+    e.preventDefault(); // Không chuyển hướng trang
+
+    const gender = document.querySelector('input[name="entry.728060465"]:checked')?.value || "";
+    const age = document.getElementById("age")?.value || "";
+    const message = document.getElementById("message")?.value || "";
+
+    const formData = new FormData();
+    formData.append("entry.728060465", gender);
+    formData.append("entry.1530883810", age);
+    formData.append("entry.153432312", message);
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData,
+    });
+
+    // Hiển thị thông báo cảm ơn ngay trên trang
+    feedbackForm.innerHTML = `
       <div class="text-center py-6">
-      <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-      <i class="ri-check-line ri-2x text-primary"></i>
+        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="ri-check-line ri-2x text-primary"></i>
+        </div>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Cảm ơn bạn!</h3>
+        <p class="text-gray-600">Phản hồi của bạn đã được ghi nhận thành công.</p>
       </div>
-      <h3 class="text-lg font-medium text-gray-800 mb-2">Thank You!</h3>
-      <p class="text-gray-600">Your feedback has been submitted successfully. We appreciate your input!</p>
-      </div>
+    `;
+  });
+});
+
+          <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="ri-check-line ri-2x text-primary"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-800 mb-2">Cảm ơn bạn!</h3>
+          <p class="text-gray-600">Phản hồi của bạn đã được ghi nhận thành công.</p>
+        </div>
       `;
-          }, 1000);
+    });
+  });
+</script>
+          // Show success message and submit to Google Forms
         });
       });
     </script>
