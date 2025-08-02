@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Healthy lab- Cafe Cao Cấp</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#C6EDC3", secondary: "#A7D7A3" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+        font-family: 'Poppins', sans-serif;
+        perspective: 1000px;
+        overflow-x: hidden;
+      }
+      .heading {
+        font-family: 'Playfair Display', serif;
+      }
+      
+      /* 3D Transform Variables */
+      :root {
+        --card-rotate-x: 0deg;
+        --card-rotate-y: 0deg;
+        --parallax-depth: 50px;
+        --float-distance: 20px;
+      }
+      
+      /* 3D Card Effects */
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: transform;
+      }
+      
+      .card-3d:hover {
+        transform: rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) translateZ(20px);
+      }
+      
+      /* Parallax Scrolling */
+      .parallax-element {
+        transform: translateZ(0);
+        transition: transform 0.1s ease-out;
+        will-change: transform;
+      }
+      
+      /* Floating Animation */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+        25% { transform: translateY(-10px) rotateX(2deg) rotateY(-2deg); }
+        50% { transform: translateY(-20px) rotateX(0deg) rotateY(0deg); }
+        75% { transform: translateY(-10px) rotateX(-2deg) rotateY(2deg); }
+      }
+      
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+        transform-style: preserve-3d;
+      }
+      
+      /* 3D Tilt Effect */
+      .tilt-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease;
+      }
+      
+      .tilt-3d:hover {
+        transform: perspective(1000px) rotateX(10deg) rotateY(10deg) scale(1.02);
+      }
+      
+      /* Glass Morphism */
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* 3D Button */
+      .button-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+      }
+      
+      .button-3d::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        transform: translateZ(-10px);
+        border-radius: inherit;
+      }
+      
+      .button-3d:hover {
+        transform: translateY(-5px) rotateX(15deg);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+      
+      .button-3d:active {
+        transform: translateY(-2px) rotateX(5deg);
+      }
+      
+      /* 3D Menu Cards */
+      .menu-card-3d {
+        transform-style: preserve-3d;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+      }
+      
+      .menu-card-3d::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: translateZ(50px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .menu-card-3d:hover::after {
+        opacity: 1;
+      }
+      
+      .menu-card-3d:hover {
+        transform: perspective(1000px) rotateY(15deg) translateZ(30px);
+      }
+      
+      /* Scroll-triggered 3D animations */
+      .scroll-3d {
+        opacity: 0;
+        transform: perspective(1000px) rotateX(30deg) translateY(100px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      
+      .scroll-3d.visible {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(0deg) translateY(0px);
+      }
+      
+      /* 3D Navigation */
+      .nav-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-3d:hover {
+        transform: translateZ(10px) rotateX(5deg);
+      }
+      
+      /* 3D Hero Section */
+      .hero-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      
+      .hero-content-3d {
+        transform: translateZ(50px);
+        transition: transform 0.3s ease;
+      }
+      
+      /* Original animations with 3D enhancements */
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px) rotateX(10deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) rotateX(0deg);
+        }
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9) rotateY(10deg);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) rotateY(0deg);
+        }
+      }
+      
+      @keyframes scaleIn {
+        from {
+          transform: scale(0.95) rotateX(15deg);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) rotateX(0deg);
+          opacity: 1;
+        }
+      }
+      
+      .menu-item {
+        animation: slideUp 0.6s ease forwards;
+        opacity: 0;
+        animation-delay: calc(var(--delay) * 0.1s);
+        transform-style: preserve-3d;
+      }
+      
+      .hero-content {
+        animation: fadeIn 1s ease forwards;
+        transform-style: preserve-3d;
+      }
+      
+      .about-card {
+        animation: scaleIn 0.5s ease forwards;
+        opacity: 0;
+        animation-delay: 0.2s;
+        transform-style: preserve-3d;
+      }
+      
+      .nav-item {
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .nav-item:hover {
+        transform: translateY(-2px) translateZ(5px);
+        color: var(--primary-color);
+      }
+      
+      .chat-widget {
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .chat-widget.expanded {
+        height: 400px;
+        transform: translateZ(20px);
+      }
+      
+      .chat-messages {
+        overflow-y: auto;
+        max-height: 250px;
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px) rotateX(10deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) rotateX(0deg);
+        }
+      }
+      
+
+      
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(20px) rotateY(-10deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) rotateY(0deg);
+        }
+      }
+      
+      .animate-fadeInUp {
+        animation: fadeInUp 0.6s ease forwards;
+        transform-style: preserve-3d;
+      }
+      
+      .animate-scaleIn {
+        animation: scaleIn 0.5s ease forwards;
+        transform-style: preserve-3d;
+      }
+      
+      .animate-slideInRight {
+        animation: slideInRight 0.5s ease forwards;
+        transform-style: preserve-3d;
+      }
+      
+      .menu-item {
+        transition: transform 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .menu-item:hover {
+        transform: translateY(-4px) rotateX(5deg) translateZ(10px);
+      }
+      
+      .button-hover {
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .button-hover:hover {
+        transform: translateY(-2px) translateZ(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .image-hover {
+        transition: transform 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .image-hover:hover {
+        transform: scale(1.05) rotateY(5deg);
+      }
+      
+      .tab-hover {
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .tab-hover:hover {
+        background-color: rgba(198, 237, 195, 0.1);
+        transform: translateZ(5px);
+      }
+      
+      /* Mobile-optimized 3D effects */
+      @media (max-width: 768px) {
+        .card-3d:hover {
+          transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
+        }
+        
+        .menu-card-3d:hover {
+          transform: perspective(800px) rotateY(10deg) translateZ(20px);
+        }
+        
+        .button-3d:hover {
+          transform: translateY(-3px) rotateX(10deg);
+        }
+      }
+      
+      /* Magic Dust Effect */
+      .magic-dust {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .magic-dust::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      .magic-dust.active::before {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+      
+      /* Sparkle Effect */
+      .sparkle {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .sparkle::after {
+        content: '✨';
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        pointer-events: none;
+        z-index: 10;
+      }
+      
+      .sparkle.active::after {
+        top: -40px;
+        opacity: 1;
+        animation: sparkleFloat 1.5s ease-out forwards;
+      }
+      
+      @keyframes sparkleFloat {
+        0% {
+          transform: translateX(-50%) scale(0.5);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-50%) scale(1.2) translateY(-20px);
+          opacity: 0;
+        }
+      }
+      
+      /* Ripple Effect */
+      .ripple-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .ripple-effect::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.6s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      .ripple-effect.active::before {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+      }
+      
+      /* Pulse Glow Effect */
+      .pulse-glow {
+        position: relative;
+      }
+      
+      .pulse-glow::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        background: linear-gradient(45deg, #C6EDC3, #A7D7A3, #C6EDC3);
+        border-radius: inherit;
+        opacity: 0;
+        transition: all 0.4s ease;
+        z-index: -1;
+      }
+      
+      .pulse-glow.active::after {
+        opacity: 1;
+        animation: pulseGlow 1s ease-out;
+      }
+      
+      @keyframes pulseGlow {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.2);
+          opacity: 0;
+        }
+      }
+      
+      /* Menu Selection Effect */
+      .menu-select {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      
+      .menu-select::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, transparent, rgba(198, 237, 195, 0.3), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: inherit;
+      }
+      
+      .menu-select.selected::before {
+        opacity: 1;
+        animation: menuSelect 0.8s ease-out;
+      }
+      
+      @keyframes menuSelect {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.1);
+          opacity: 0;
+        }
+      }
+      
+      /* Floating Particles */
+      .floating-particles {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #C6EDC3;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        animation: particleFloat 2s ease-out forwards;
+      }
+      
+      @keyframes particleFloat {
+        0% {
+          transform: translateY(0) scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) scale(1);
+          opacity: 0;
+        }
+      }
+      
+      /* Success Checkmark */
+      .success-check {
+        position: relative;
+      }
+      
+      .success-check::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        color: #10B981;
+        font-size: 24px;
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 10;
+      }
+      
+      .success-check.active::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        animation: successBounce 0.6s ease-out;
+      }
+      
+      @keyframes successBounce {
+        0% {
+          transform: translate(-50%, -50%) scale(0);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+      
+      /* Hover Glow */
+      .hover-glow:hover {
+        box-shadow: 0 0 20px rgba(198, 237, 195, 0.6);
+        transform: translateY(-2px);
+      }
+      
+      /* Click Wave */
+      .click-wave {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .click-wave::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.5s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+      
+      .click-wave.active::before {
+        width: 150px;
+        height: 150px;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-800">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
+      <div
+        class="max-w-[375px] mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <a href="#" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+        <div class="flex items-center space-x-4">
+          <button
+            id="menuToggle"
+            class="w-8 h-8 flex items-center justify-center"
+          >
+            <i class="ri-menu-line ri-xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+    >
+      <div class="max-w-[375px] mx-auto px-6 py-6">
+        <div class="flex justify-between items-center mb-8">
+          <a href="#" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+          <button
+            id="closeMenu"
+            class="w-8 h-8 flex items-center justify-center"
+          >
+            <i class="ri-close-line ri-xl"></i>
+          </button>
+        </div>
+        <ul class="space-y-6">
+          <li>
+            <a
+              href="#home"
+              class="block text-lg font-medium hover:text-primary transition-colors nav-3d"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="block text-lg font-medium hover:text-primary transition-colors nav-3d"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="#menu"
+              class="block text-lg font-medium hover:text-primary transition-colors nav-3d"
+              >Menu</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="block text-lg font-medium hover:text-primary transition-colors nav-3d"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <div class="mt-10 pt-6 border-t border-gray-100">
+          <p class="text-sm text-gray-500 mb-4">Follow us</p>
+          <div class="flex space-x-4">
+            <a
+              href="#"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary"
+            >
+              <i class="ri-instagram-line"></i>
+            </a>
+            <a
+              href="#"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary"
+            >
+              <i class="ri-facebook-fill"></i>
+            </a>
+            <a
+              href="#"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary"
+            >
+              <i class="ri-twitter-x-line"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <main class="pt-14 pb-16">
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="relative h-[500px] overflow-hidden animate-fadeInUp hero-content hero-3d"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary/10 z-0 parallax-element"
+        ></div>
+        <img
+          src="https://readdy.ai/api/search-image?query=elegant%20milk%20tea%20cup%20with%20light%20green%20pastel%20color%2C%20aesthetic%20photography%2C%20premium%20quality%2C%20white%20background%2C%20minimalist%20style%2C%20soft%20lighting&width=800&height=600&seq=hero1&orientation=landscape"
+          alt="Premium Milk Tea"
+          class="absolute inset-0 w-full h-full object-cover object-top image-hover parallax-element"
+        />
+        <div
+          class="relative z-10 max-w-[375px] mx-auto px-6 h-full flex flex-col justify-center hero-content-3d"
+        >
+          <h1 class="heading text-4xl font-bold mb-3 text-gray-800 float-animation">
+            Healthy Lab<br />Cafe
+          </h1>
+          <p class="text-lg mb-6 text-gray-700 max-w-[280px] scroll-3d">
+            • Không đường & siro hóa học<br />
+            • Ngọt tự nhiên & hoa quả<br />
+            • Giảm 60% calo, vị ngon không đổi
+          </p>
+          <div class="flex flex-col space-y-3">
+            <a
+              href="#menu"
+              class="inline-block bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover button-3d magic-dust sparkle hover-glow click-wave"
+              >Xem Thực Đơn</a
+            >
+            <a
+              href="https://m.me/your-page-username"
+              target="_blank"
+              class="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover button-3d ripple-effect pulse-glow click-wave"
+            >
+              <i class="ri-messenger-line mr-2"></i>
+              Chat trên Messenger
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- About Section -->
+      <section id="about" class="py-12 max-w-[375px] mx-auto px-6">
+        <div class="text-center mb-8 scroll-3d">
+          <h2 class="heading text-2xl font-semibold mb-2">Câu Chuyện</h2>
+          <p class="text-gray-600">
+            Một ly cà phê hay trà sữa có thể chứa đến 30g đường
+          </p>
+        </div>
+        <div
+          class="bg-primary/5 p-6 rounded-lg mb-8 card-3d glass-effect"
+          style="background-image: url('https://readdy.ai/api/search-image?query=subtle%20organic%20texture%20pattern%2C%20extremely%20light%20and%20soft%2C%20pastel%20green%20tint%2C%20minimalist%20design%2C%20barely%20visible&width=400&height=400&seq=texture1&orientation=squarish'); background-blend-mode: overlay;"
+        >
+          <p class="text-gray-700 leading-relaxed">
+            Trong một ly cà phê, matcha hay trà sữa cũ có thể vượt ngưỡng đường
+            mà một người nên tiêu thụ mỗi ngày. Với mục tiêu hương vị nguyên bản
+            nhưng giảm tối đa lượng đường tiêu thụ, Healthy lab với công thức từ
+            các thành phần tự nhiên không đường và siro hóa học, được thay thế
+            bằng hoa quả tươi cùng thành phần tự nhiên.
+          </p>
+          <p class="text-gray-700 leading-relaxed mt-4">
+            Mỗi một ly của Healthy Lab giảm trung bình 60% lượng calo so với đồ
+            uống thông thường, nhưng vẫn giữ được hương vị thơm ngon đặc trưng.
+            Chúng tôi tin rằng việc thưởng thức đồ uống không chỉ dừng lại ở
+            hương vị, mà còn phải đảm bảo sức khỏe cho người dùng.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white shadow-md rounded-lg overflow-hidden about-card card-3d tilt-3d">
+            <img
+              src="https://readdy.ai/api/search-image?query=natural%20sweetness%20ingredients%2C%20fresh%20fruits%2C%20honey%20and%20natural%20sweeteners%20for%20tea%2C%20arranged%20beautifully%2C%20soft%20lighting%2C%20pastel%20green%20background%2C%20minimalist%20style&width=400&height=300&seq=ing1&orientation=landscape"
+              alt="Natural Sweetness"
+              class="w-full h-40 object-cover object-top"
+            />
+            <div class="p-4">
+              <h3 class="font-medium text-gray-800">Ngọt Tự Nhiên</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Từ hoa quả ngâm và thành phần tự nhiên
+              </p>
+            </div>
+          </div>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden about-card card-3d tilt-3d">
+            <img
+              src="https://readdy.ai/api/search-image?query=fresh%20fruits%20and%20natural%20ingredients%20for%20tea%2C%20colorful%20fruits%20and%20honey%2C%20soft%20lighting%2C%20pastel%20green%20background%2C%20minimalist%20style&width=400&height=300&seq=ing2&orientation=landscape"
+              alt="Handcrafted"
+              class="w-full h-40 object-cover object-top"
+            />
+            <div class="p-4">
+              <h3 class="font-medium text-gray-800">Vị Ngon Nguyên Bản</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Hương vị đặc trưng không đổi
+              </p>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Menu Section -->
+      <section id="menu" class="py-12">
+        <div class="max-w-[375px] mx-auto">
+          <div class="text-center mb-8 scroll-3d">
+            <h2 class="heading text-2xl font-semibold mb-2">Signature Menu</h2>
+            <p class="text-gray-600">
+              Khám phá những món đặc biệt của chúng tôi
+            </p>
+          </div>
+          <div class="relative">
+            <div class="overflow-hidden">
+              <div
+                id="menuSlider"
+                class="flex transition-transform duration-300 ease-in-out"
+              >
+                <div class="w-[375px] flex-shrink-0 px-6">
+                  <div class="relative rounded-lg overflow-hidden shadow-lg menu-card-3d menu-select floating-particles">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=aesthetic%20milk%20tea%20photography%2C%20brown%20sugar%20boba%20milk%20tea%20with%20cream%20foam%20top%2C%20clear%20cup%2C%20professional%20product%20photography%2C%20soft%20lighting%2C%20minimalist%20style%2C%20pastel%20green%20elements&width=375&height=500&seq=sig1&orientation=portrait"
+                      alt="Brown Sugar Fresh Milk"
+                      class="w-full h-[400px] object-cover object-center"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6"
+                    >
+                      <h3 class="text-white text-xl font-medium mb-2">
+                        Brown Sugar Fresh Milk
+                      </h3>
+                      <p class="text-white/90 text-sm">
+                        Sữa tươi trân châu đường nâu
+                      </p>
+                      <div class="flex items-center mt-3">
+                        <span
+                          class="bg-white/20 text-white text-xs px-3 py-1 rounded-full"
+                          >Best Seller</span
+                        >
+                        <span class="text-white text-lg ml-auto font-medium"
+                          >45.000đ</span
+                        >
+                      </div>
+                      <button class="absolute top-4 right-4 bg-primary text-gray-800 px-3 py-1 rounded-full text-sm font-medium magic-dust sparkle hover-glow click-wave">
+                        Đặt Món
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-[375px] flex-shrink-0 px-6">
+                  <div class="relative rounded-lg overflow-hidden shadow-lg menu-card-3d menu-select floating-particles">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=aesthetic%20milk%20tea%20photography%2C%20matcha%20milk%20tea%20with%20cream%20foam%20top%2C%20clear%20cup%2C%20professional%20product%20photography%2C%20soft%20lighting%2C%20minimalist%20style%2C%20pastel%20green%20elements&width=375&height=500&seq=sig2&orientation=portrait"
+                      alt="Matcha Fresh Milk"
+                      class="w-full h-[400px] object-cover object-center"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6"
+                    >
+                      <h3 class="text-white text-xl font-medium mb-2">
+                        Matcha Fresh Milk
+                      </h3>
+                      <p class="text-white/90 text-sm">
+                        Matcha sữa tươi kem cheese
+                      </p>
+                      <div class="flex items-center mt-3">
+                        <span
+                          class="bg-white/20 text-white text-xs px-3 py-1 rounded-full"
+                          >Premium</span
+                        >
+                        <span class="text-white text-lg ml-auto font-medium"
+                          >52.000đ</span
+                        >
+                      </div>
+                      <button class="absolute top-4 right-4 bg-primary text-gray-800 px-3 py-1 rounded-full text-sm font-medium magic-dust sparkle hover-glow click-wave">
+                        Đặt Món
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-[375px] flex-shrink-0 px-6">
+                  <div class="relative rounded-lg overflow-hidden shadow-lg menu-card-3d menu-select floating-particles">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=aesthetic%20milk%20tea%20photography%2C%20taro%20milk%20tea%20with%20cream%20foam%20top%2C%20clear%20cup%2C%20professional%20product%20photography%2C%20soft%20lighting%2C%20minimalist%20style%2C%20pastel%20green%20elements&width=375&height=500&seq=sig3&orientation=portrait"
+                      alt="Taro Fresh Milk"
+                      class="w-full h-[400px] object-cover object-center"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6"
+                    >
+                      <h3 class="text-white text-xl font-medium mb-2">
+                        Taro Fresh Milk
+                      </h3>
+                      <p class="text-white/90 text-sm">
+                        Khoai môn sữa tươi kem cheese
+                      </p>
+                      <div class="flex items-center mt-3">
+                        <span
+                          class="bg-white/20 text-white text-xs px-3 py-1 rounded-full"
+                          >Signature</span
+                        >
+                        <span class="text-white text-lg ml-auto font-medium"
+                          >52.000đ</span
+                        >
+                      </div>
+                      <button class="absolute top-4 right-4 bg-primary text-gray-800 px-3 py-1 rounded-full text-sm font-medium magic-dust sparkle hover-glow click-wave">
+                        Đặt Món
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              id="prevSlide"
+              class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md z-10 hover:bg-white transition-colors button-3d"
+            >
+              <i class="ri-arrow-left-s-line text-gray-800"></i>
+            </button>
+            <button
+              id="nextSlide"
+              class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md z-10 hover:bg-white transition-colors button-3d"
+            >
+              <i class="ri-arrow-right-s-line text-gray-800"></i>
+            </button>
+            <div class="flex justify-center mt-4 space-x-2">
+              <button
+                class="w-2 h-2 rounded-full bg-primary"
+                data-index="0"
+              ></button>
+              <button
+                class="w-2 h-2 rounded-full bg-gray-300"
+                data-index="1"
+              ></button>
+              <button
+                class="w-2 h-2 rounded-full bg-gray-300"
+                data-index="2"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <div
+          class="mt-12 bg-white p-6 rounded-lg shadow-md"
+          style="background-image: url('https://readdy.ai/api/search-image?query=subtle%20organic%20texture%20pattern%2C%20extremely%20light%20and%20soft%2C%20white%20tint%2C%20minimalist%20design%2C%20barely%20visible&width=400&height=400&seq=texture2&orientation=squarish'); background-blend-mode: overlay;"
+        >
+          <h3 class="heading text-lg font-medium mb-4 text-center">
+            Chia Sẻ Cảm Nhận
+          </h3>
+          <form 
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse" 
+            method="post" 
+            target="_blank"
+            id="feedbackForm" 
+            class="space-y-4"
+          >
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Giới tính</label
+              >
+              <div class="flex space-x-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="entry.728060465"
+                    value="Nam"
+                    class="hidden"
+                  />
+                  <div
+                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
+                  >
+                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                  </div>
+                  <span class="text-gray-700">Nam</span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="entry.728060465"
+                    value="Nữ"
+                    class="hidden"
+                  />
+                  <div
+                    class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2"
+                  >
+                    <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                  </div>
+                  <span class="text-gray-700">Nữ</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label
+                for="age"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Tuổi</label
+              >
+              <input
+                type="number"
+                id="age"
+                name="entry.1530883810"
+                min="1"
+                max="120"
+                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder="Nhập tuổi của bạn"
+              />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Lời nhắn</label
+              >
+              <textarea
+                id="message"
+                name="entry.153432312"
+                rows="4"
+                class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder="Chia sẻ cảm nhận của bạn"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-primary text-gray-800 px-6 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+            >
+              Gửi Phản Hồi
+            </button>
+          </form>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact" class="py-12 max-w-[375px] mx-auto px-6">
+        <div class="text-center mb-8 scroll-3d">
+          <h2 class="heading text-2xl font-semibold mb-2">Visit Us</h2>
+          <p class="text-gray-600">Experience the tranquility in person</p>
+        </div>
+        <div
+          class="bg-white shadow-md rounded-lg overflow-hidden mb-8 card-3d glass-effect"
+          style="background-image: url('https://readdy.ai/api/search-image?query=subtle%20organic%20texture%20pattern%2C%20extremely%20light%20and%20soft%2C%20white%20tint%2C%20minimalist%20design%2C%20barely%20visible&width=400&height=400&seq=texture4&orientation=squarish'); background-blend-mode: overlay;"
+        >
+          <div class="h-48 bg-gray-100 relative">
+            <img
+              src="https://public.readdy.ai/gen_page/map_placeholder_1280x720.png"
+              alt="Store Location"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 flex items-center justify-center bg-black/20"
+            >
+              <button
+                class="bg-white text-gray-800 px-4 py-2 !rounded-button font-medium shadow-md flex items-center space-x-2 cursor-pointer button-3d"
+              >
+                <i class="ri-map-pin-line"></i>
+                <span>Get Directions</span>
+              </button>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-800">Bông Biếng Flagship Store</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              B4 Pham Ngoc Thach Street, District 1
+            </p>
+            <div class="mt-3 space-y-2">
+              <div class="flex items-center text-sm text-gray-600">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">Mon-Fri: 8:00 AM - 9:00 PM</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">Sat-Sun: 9:00 AM - 10:00 PM</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600">
+                <i
+                  class="ri-phone-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">+84 28 1234 5678</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <a
+                href="https://m.me/your-page-username"
+                target="_blank"
+                class="w-full inline-flex items-center justify-center bg-blue-600 text-white px-4 py-3 !rounded-button font-medium shadow-md hover:shadow-lg transition-shadow cursor-pointer button-hover button-3d"
+              >
+                <i class="ri-messenger-line mr-2"></i>
+                Chat trên Messenger
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Messenger Chat Widget -->
+    <div class="fixed bottom-20 right-4 z-40">
+      <a
+        href="https://m.me/your-page-username"
+        target="_blank"
+        class="flex items-center bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-blue-700 button-hover button-3d float-animation"
+      >
+        <i class="ri-messenger-fill text-xl mr-2"></i>
+        <span class="font-medium">Chat trên Messenger</span>
+      </a>
+    </div>
+    <!-- Tab Bar -->
+    <nav class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-40">
+      <div class="max-w-[375px] mx-auto grid grid-cols-4">
+        <a
+          href="#home"
+          class="flex flex-col items-center justify-center py-2 cursor-pointer tab-hover nav-3d"
+        >
+          <div class="w-6 h-6 flex items-center justify-center text-primary">
+            <i class="ri-home-5-line"></i>
+          </div>
+          <span class="text-xs mt-1 text-primary">Home</span>
+        </a>
+        <a
+          href="#about"
+          class="flex flex-col items-center justify-center py-2 cursor-pointer nav-3d"
+        >
+          <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+            <i class="ri-store-2-line"></i>
+          </div>
+          <span class="text-xs mt-1 text-gray-500">About</span>
+        </a>
+        <a
+          href="#menu"
+          class="flex flex-col items-center justify-center py-2 cursor-pointer nav-3d"
+        >
+          <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+            <i class="ri-cup-line"></i>
+          </div>
+          <span class="text-xs mt-1 text-gray-500">Menu</span>
+        </a>
+        <a
+          href="#contact"
+          class="flex flex-col items-center justify-center py-2 cursor-pointer nav-3d"
+        >
+          <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+            <i class="ri-map-pin-line"></i>
+          </div>
+          <span class="text-xs mt-1 text-gray-500">Visit</span>
+        </a>
+      </div>
+    </nav>
+    <!-- Scripts -->
+    <script id="mainScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        // ===== NAVIGATION & MENU FUNCTIONALITY =====
+        const menuToggle = document.getElementById("menuToggle");
+        const closeMenu = document.getElementById("closeMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuLinks = mobileMenu.querySelectorAll("a");
+        const sections = document.querySelectorAll("section");
+        
+        // 3D Scroll Observer
+        const scrollObserverOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        }, scrollObserverOptions);
+        
+        // Observe all scroll-3d elements
+        document.querySelectorAll(".scroll-3d").forEach((element) => {
+          scrollObserver.observe(element);
+        });
+        
+        // Parallax Effect
+        let ticking = false;
+        function updateParallax() {
+          const scrolled = window.pageYOffset;
+          const parallaxElements = document.querySelectorAll(".parallax-element");
+          
+          parallaxElements.forEach((element, index) => {
+            const speed = 0.5 + (index * 0.1);
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px) translateZ(0)`;
+          });
+          
+          ticking = false;
+        }
+        
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        }
+        
+        window.addEventListener("scroll", requestTick);
+        
+        // 3D Card Tilt Effect
+        document.querySelectorAll(".card-3d").forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.setProperty("--card-rotate-x", `${rotateX}deg`);
+            card.style.setProperty("--card-rotate-y", `${rotateY}deg`);
+          });
+          
+          card.addEventListener("mouseleave", () => {
+            card.style.setProperty("--card-rotate-x", "0deg");
+            card.style.setProperty("--card-rotate-y", "0deg");
+          });
+        });
+        
+        // Original navigation functionality
+        const observerOptions = {
+          threshold: 0.2,
+        };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-fadeInUp");
+            }
+          });
+        }, observerOptions);
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+        
+        menuToggle.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        closeMenu.addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+        menuLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("translate-x-full");
+          });
+        });
+        
+        // Menu Slider with 3D effects
+        const menuSlider = document.getElementById("menuSlider");
+        const prevButton = document.getElementById("prevSlide");
+        const nextButton = document.getElementById("nextSlide");
+        const indicators = document.querySelectorAll("[data-index]");
+        let currentSlide = 0;
+        const slideCount = 3;
+        
+        function updateSlider() {
+          menuSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
+          indicators.forEach((indicator, index) => {
+            if (index === currentSlide) {
+              indicator.classList.remove("bg-gray-300");
+              indicator.classList.add("bg-primary");
+            } else {
+              indicator.classList.remove("bg-primary");
+              indicator.classList.add("bg-gray-300");
+            }
+          });
+        }
+        
+        prevButton.addEventListener("click", () => {
+          currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+          updateSlider();
+        });
+        nextButton.addEventListener("click", () => {
+          currentSlide = (currentSlide + 1) % slideCount;
+          updateSlider();
+        });
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener("click", () => {
+            currentSlide = index;
+            updateSlider();
+          });
+        });
+        
+        let touchStartX = 0;
+        let touchEndX = 0;
+        menuSlider.addEventListener("touchstart", (e) => {
+          touchStartX = e.touches[0].clientX;
+        });
+        menuSlider.addEventListener("touchmove", (e) => {
+          touchEndX = e.touches[0].clientX;
+        });
+        menuSlider.addEventListener("touchend", () => {
+          const swipeDistance = touchStartX - touchEndX;
+          if (Math.abs(swipeDistance) > 50) {
+            if (swipeDistance > 0) {
+              currentSlide = (currentSlide + 1) % slideCount;
+            } else {
+              currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            }
+            updateSlider();
+          }
+        });
+        
+        // ===== TAB BAR FUNCTIONALITY =====
+        const tabLinks = document.querySelectorAll("nav.fixed.bottom-0 a");
+        tabLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            // Reset all tabs
+            tabLinks.forEach((tab) => {
+              const icon = tab.querySelector("div");
+              const text = tab.querySelector("span");
+              icon.classList.remove("text-primary");
+              icon.classList.add("text-gray-500");
+              text.classList.remove("text-primary");
+              text.classList.add("text-gray-500");
+            });
+            // Activate clicked tab
+            const icon = this.querySelector("div");
+            const text = this.querySelector("span");
+            icon.classList.remove("text-gray-500");
+            icon.classList.add("text-primary");
+            text.classList.remove("text-gray-500");
+            text.classList.add("text-primary");
+          });
+        });
+        
+        // ===== FEEDBACK FORM FUNCTIONALITY =====
+        const feedbackForm = document.getElementById("feedbackForm");
+        const radioInputs = document.querySelectorAll('input[type="radio"]');
+
+        // Bắt sự kiện chọn giới tính
+        radioInputs.forEach((input) => {
+          input.addEventListener("change", function () {
+            radioInputs.forEach((radio) => {
+              const indicator =
+                radio.nextElementSibling.querySelector("div:last-child");
+              indicator.classList.add("hidden");
+            });
+            const indicator = this.nextElementSibling.querySelector("div:last-child");
+            indicator.classList.remove("hidden");
+          });
+        });
+
+        // Bắt sự kiện submit
+        feedbackForm.addEventListener("submit", function (e) {
+          e.preventDefault(); // Không chuyển hướng trang
+
+          const gender = document.querySelector('input[name="entry.728060465"]:checked')?.value || "";
+          const age = document.getElementById("age")?.value || "";
+          const message = document.getElementById("message")?.value || "";
+
+          const formData = new FormData();
+          formData.append("entry.728060465", gender);
+          formData.append("entry.1530883810", age);
+          formData.append("entry.153432312", message);
+
+          fetch("https://docs.google.com/forms/d/e/1FAIpQLSeUTqpJ9YRw7Wk7mOzfiuQ-pyZIuFLEDZ09xLTPXmxQJQ7ypg/formResponse", {
+            method: "POST",
+            mode: "no-cors",
+            body: formData,
+          });
+
+          // Hiển thị thông báo cảm ơn ngay trên trang
+          feedbackForm.innerHTML = `
+            <div class="text-center py-6">
+              <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ri-check-line ri-2x text-primary"></i>
+              </div>
+              <h3 class="text-lg font-medium text-gray-800 mb-2">Cảm ơn bạn!</h3>
+              <p class="text-gray-600">Phản hồi của bạn đã được ghi nhận thành công.</p>
+            </div>
+          `;
+        });
+        
+        // ===== INTERACTIVE EFFECTS FUNCTIONALITY =====
+        // Create particles function
+        function createParticles(element, count = 8) {
+          for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 0.5 + 's';
+            element.appendChild(particle);
+            
+            setTimeout(() => {
+              particle.remove();
+            }, 2000);
+          }
+        }
+        
+        // Magic Dust Effect
+        document.querySelectorAll('.magic-dust').forEach(element => {
+          element.addEventListener('click', function(e) {
+            this.classList.add('active');
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 600);
+          });
+        });
+        
+        // Sparkle Effect
+        document.querySelectorAll('.sparkle').forEach(element => {
+          element.addEventListener('click', function(e) {
+            this.classList.add('active');
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 1500);
+          });
+        });
+        
+        // Ripple Effect
+        document.querySelectorAll('.ripple-effect').forEach(element => {
+          element.addEventListener('click', function(e) {
+            this.classList.add('active');
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 600);
+          });
+        });
+        
+        // Pulse Glow Effect
+        document.querySelectorAll('.pulse-glow').forEach(element => {
+          element.addEventListener('click', function(e) {
+            this.classList.add('active');
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 1000);
+          });
+        });
+        
+        // Menu Selection Effect
+        document.querySelectorAll('.menu-select').forEach(element => {
+          element.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('magic-dust')) {
+              this.classList.add('selected');
+              setTimeout(() => {
+                this.classList.remove('selected');
+              }, 800);
+            }
+          });
+        });
+        
+        // Floating Particles Effect
+        document.querySelectorAll('.floating-particles').forEach(element => {
+          element.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('magic-dust')) {
+              createParticles(this);
+            }
+          });
+        });
+        
+        // Click Wave Effect
+        document.querySelectorAll('.click-wave').forEach(element => {
+          element.addEventListener('click', function(e) {
+            this.classList.add('active');
+            setTimeout(() => {
+              this.classList.remove('active');
+            }, 500);
+          });
+        });
+        
+        // Success Check Effect for Order Buttons
+        document.querySelectorAll('button').forEach(button => {
+          if (button.textContent.includes('Đặt Món')) {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              this.classList.add('success-check');
+              this.textContent = 'Đã Đặt!';
+              
+              setTimeout(() => {
+                this.classList.remove('success-check');
+                this.textContent = 'Đặt Món';
+              }, 2000);
+            });
+          }
+        });
+        
+        // Hover Glow Effect
+        document.querySelectorAll('.hover-glow').forEach(element => {
+          element.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px) scale(1.02)';
+          });
+          
+          element.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
